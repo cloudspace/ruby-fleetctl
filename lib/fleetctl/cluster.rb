@@ -24,16 +24,16 @@ module Fleet
       units.detect { |u| u.name == unit_name }
     end
 
-    def submit(*file_or_paths_or_units)
+    def submit(*files_or_paths_or_units)
       @units = nil
-      paths = file_or_paths_or_units.map { |obj| obj.respond_to?(:path) ? obj.path : obj }
+      paths = files_or_paths_or_units.map { |obj| obj.respond_to?(:path) ? obj.path : obj }
       runner = Fleet::Command.run('submit', paths)
       runner.return_code == 0
     end
 
-    def start(*file_or_paths_or_units)
+    def start(*files_or_paths_or_units)
       @units = nil
-      paths = file_or_paths_or_units.map { |obj| obj.respond_to?(:path) ? obj.path : obj }
+      paths = files_or_paths_or_units.map { |obj| obj.respond_to?(:path) ? obj.path : obj }
       runner = Fleet::Command.run('start', paths)
       runner.return_code == 0
     end

@@ -1,5 +1,9 @@
 module Fleet
   class Unit
+    # http://linuxrackers.com/doku.php?id=fedora_systemd_services
+    # LOAD   = Reflects whether the unit definition was properly loaded.
+    # ACTIVE = The high-level unit activation state, i.e. generalization of SUB.
+    # SUB    = The low-level unit activation state, values depend on unit type.
     attr_reader :cluster, :name, :state, :load, :active, :sub, :desc, :machine
 
     def initialize(cluster:, name:, state:, load:, active:, sub:, desc:, machine:)
@@ -31,6 +35,10 @@ module Fleet
       JSON.parse(output).first
     end
 
+    def docker_rm(container_name)
+      output = execute_docker_command('rm', container_name)
+    end
+
     def ==(other_unit)
       name == other_unit.name
     end
@@ -43,7 +51,7 @@ module Fleet
       execute_docker_command('port', container_name, internal_port)
     end
 
-    def execute_docker_command(cmd)
+    def execute_docker_command(*cmd)
       command = Fleet::Command.run('ssh', name, 'docker', cmd)
       command.output
     end

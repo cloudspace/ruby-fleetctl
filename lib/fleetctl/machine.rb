@@ -1,6 +1,5 @@
 module Fleet
   class Machine
-
     attr_reader :cluster, :id, :ip, :metadata
 
     def initialize(cluster: nil, id: nil, ip: nil, metadata: nil)
