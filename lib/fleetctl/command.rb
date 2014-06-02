@@ -27,7 +27,7 @@ module Fleet
 
     def prefix
       # TODO: figure out a better way to avoid auth issues
-      "eval `ssh-agent -s`; ssh-add >/dev/null 2>&1;"
+      "eval `ssh-agent -s` >/dev/null 2>&1; ssh-add >/dev/null 2>&1;"
     end
 
     def global_options
