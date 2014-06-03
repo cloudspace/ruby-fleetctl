@@ -26,6 +26,18 @@ module Fleet
       machine && machine.ip
     end
 
+    def creating?
+      active == 'activating' && sub == 'start-pre'
+    end
+
+    def failed?
+      active == 'failed' && sub == 'failed'
+    end
+
+    def running?
+      active == 'active' && sub == 'running'
+    end
+
     def ssh_port(container_name)
       fetch_port(container_name, 22)
     end
