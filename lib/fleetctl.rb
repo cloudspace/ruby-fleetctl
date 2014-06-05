@@ -16,6 +16,14 @@ module Fleet
       Fleet::Cluster.new
     end
 
+    def instance
+      @instance ||= Fleet::Cluster.new
+    end
+
+    def sync
+      instance.sync
+    end
+
     def start(*units)
       Fleet::Cluster.new.start(*units)
     end
