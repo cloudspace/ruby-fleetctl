@@ -1,4 +1,4 @@
-module Fleet
+module Fleetctl
   class TableParser
     attr_accessor :raw
 

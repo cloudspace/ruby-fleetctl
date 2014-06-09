@@ -1,4 +1,4 @@
-module Fleet
+module Fleetctl
   class Command
     attr_accessor :command
 
@@ -14,28 +14,28 @@ module Fleet
       yield(runner) if block_given?
     end
 
-    def run
-      runner.run
+    def run(*args)
+      runner.run(*args)
       runner
     end
 
     def runner
-      @runner ||= CommandRunner.new(expression)
+      klass = "Fleetctl::Runner::#{Fleetctl.options.runner_class}".constantize
+      @runner ||= klass.new(expression)
     end
 
     private
 
-    def prefix
-      # TODO: figure out a better way to avoid auth issues
-      "eval `ssh-agent -s` >/dev/null 2>&1; ssh-add >/dev/null 2>&1;"
+    def global_options
+      Fleetctl.options.global.map { |k,v| "--#{k.to_s.gsub('_','-')}=#{v}" }
     end
 
-    def global_options
-      Fleet.options.global.map { |k,v| "--#{k.to_s.gsub('_','-')}=#{v}" }
+    def prefix
+      Fleetctl.options.command_prefix
     end
 
     def executable
-      Fleet.options.executable
+      Fleetctl.options.executable
     end
 
     def expression
