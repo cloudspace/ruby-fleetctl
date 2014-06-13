@@ -8,7 +8,7 @@ Warning: This gem is essentially a wrapper for an executable that is still in al
 
 Add Fleetctl to your Gemfile (I recommend locking yourself to an exact version for now. I may change anything at any time):
 
-    gem 'fleetctl', '= 0.1.2'
+    gem 'fleetctl', '0.1.2'
 
 And `$ bundle install`
 
