@@ -7,14 +7,6 @@ module Fleet
       @cluster = Fleet::Cluster.new(controller: self)
     end
 
-    def build_fleet
-      cluster.discover!
-    end
-
-    def fleet_host
-      cluster.fleet_host
-    end
-
     # returns an array of Fleet::Machine instances
     def machines
       cluster.machines
@@ -42,7 +34,7 @@ module Fleet
 
     # accepts one or more File objects, or an array of File objects
     def start(*unit_file_or_files)
-      unitfiles = *unit_file_or_files.flatten
+      unitfiles = [*unit_file_or_files].flatten
       out = unitfile_operation(:start, unitfiles)
       clear_units
       out
@@ -50,7 +42,7 @@ module Fleet
 
     # accepts one or more File objects, or an array of File objects
     def submit(*unit_file_or_files)
-      unitfiles = *unit_file_or_files.flatten
+      unitfiles = [*unit_file_or_files].flatten
       out = unitfile_operation(:submit, unitfiles)
       clear_units
       out
@@ -58,7 +50,7 @@ module Fleet
 
     # accepts one or more File objects, or an array of File objects
     def load(*unit_file_or_files)
-      unitfiles = *unit_file_or_files.flatten
+      unitfiles = [*unit_file_or_files].flatten
       out = unitfile_operation(:load, unitfiles)
       clear_units
       out
@@ -70,11 +62,19 @@ module Fleet
       runner.exit_code == 0
     end
 
+    private
+
+    def build_fleet
+      cluster.discover!
+    end
+
+    def fleet_host
+      cluster.fleet_host
+    end
+
     def clear_units
       @units = nil
     end
-
-    private
 
     def unitfile_operation(command, files)
       clear_units

@@ -42,7 +42,7 @@ module Fleet
 
     # run the command on host (string, array of command + args, whatever) and return stdout
     def ssh(*command, port: 22)
-      runner = Fleetctl::Runner::SSH.new(*command.flatten.compact.join(' '))
+      runner = Fleetctl::Runner::SSH.new([*command].flatten.compact.join(' '))
       runner.run(host: ip, ssh_options: { port: port })
       runner.output
     end
@@ -56,13 +56,14 @@ module Fleet
       @container_ssh_port = docker_runner.output.split(':').last.rstrip
     end
 
-    # attempts to execute a command via ssh directly on the container
-    # assumes that this unit corresponds to a docker container
-    def container_ssh(*command, container_name: name, key: Dir.home+'/.ssh/id_rsa')
-      cmd_runner = Fleetctl::Runner::SSH.new(*command.flatten.compact.join(' '))
-      cmd_runner.run(host: ip, ssh_options: { port: container_ssh_port(container_name), keys: [key] })
-      runner.output
-    end
+    # TODO: GET THIS WORKING
+    # # attempts to execute a command via ssh directly on the container
+    # # assumes that this unit corresponds to a docker container
+    # def container_ssh(*command, container_name: name, key: Dir.home+'/.ssh/id_rsa', username: 'root', password: nil)
+    #   cmd_runner = Fleetctl::Runner::SSH.new([*command].flatten.compact.join(' '))
+    #   cmd_runner.run(host: ip, ssh_options: { port: container_ssh_port(container_name), keys: [*key], username: username, password: password})
+    #   runner.output
+    # end
 
     # returns a JSON object representing the container
     # assumes that this unit corresponds to a docker container

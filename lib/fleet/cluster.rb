@@ -23,7 +23,7 @@ module Fleet
     # attempts to rebuild the cluster from any of the hosts passed as arguments
     # returns the first ip that worked, else nil
     def build_from(*ip_addrs)
-      ip_addrs = *ip_addrs.flatten.compact
+      ip_addrs = [*ip_addrs].flatten.compact
       begin
         Fleetctl.logger.info 'building from hosts: ' + ip_addrs.inspect
         built_from = ip_addrs.detect { |ip_addr| fetch_machines(ip_addr) }
