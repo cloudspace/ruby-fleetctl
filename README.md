@@ -6,7 +6,7 @@ Warning: This gem is essentially a wrapper for an executable that is still in al
 
 ## Installation and Configuration
 
-Add Fleetctl to your Gemfile (I reccommend locking yourself to an exact version for now. I may change anything at any time):
+Add Fleetctl to your Gemfile (I recommend locking yourself to an exact version for now. I may change anything at any time):
 
     gem 'fleetctl', '= 0.1.2'
 
