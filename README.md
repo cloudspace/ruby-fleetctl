@@ -88,6 +88,7 @@ To get a specific unit by name:
     => #<Fleet::Unit...>
 
 The `:start`, `:load`, and `:submit` methods all operate on one or more `File` objects (fleet unitfiles).
+
     unitfile = File.open('my-unit.service')
     fleet.submit(unitfile)
     => true
