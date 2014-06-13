@@ -46,10 +46,3 @@ module Fleetctl
     end
   end
 end
-
-module Fleet
-  class << self
-    extend Forwardable
-    def_delegators :Fleetctl, :new, :instance, :machines, :units, :[], :sync, :start, :submit, :load, :destroy, :config, :logger, :options
-  end
-end
