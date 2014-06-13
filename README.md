@@ -6,9 +6,9 @@ Warning: This gem is essentially a wrapper for an executable that is still in al
 
 ## Installation and Configuration
 
-Add Fleetctl to your Gemfile:
+Add Fleetctl to your Gemfile (I reccommend locking yourself to an exact version for now. I may change anything at any time):
 
-    gem 'fleetctl', git: 'https://github.com/josh-lauer/ruby-fleetctl', tag: 'v0.1.0'
+    gem 'fleetctl', '= 0.1.2'
 
 And `$ bundle install`
 
