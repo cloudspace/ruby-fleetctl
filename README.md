@@ -8,7 +8,7 @@ Warning: This gem is essentially a wrapper for an executable that is still in al
 
 Add Fleetctl to your Gemfile (I recommend locking yourself to an exact version for now. I may change anything at any time):
 
-    gem 'fleetctl', '0.1.2'
+    gem 'fleetctl', '0.1.3'
 
 And `$ bundle install`
 
@@ -111,7 +111,7 @@ A `Fleet::Machine` represents a machine which is part of a fleet cluster.
 
 ## Contributing
 
-1. Fork it ( https://github.com/josh-lauer/fleetctl/fork )
+1. Fork it ( https://github.com/cloudspace/fleetctl/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)

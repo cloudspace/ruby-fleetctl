@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ['jlauer@cloudspace.com']
   spec.summary       = %q{A simple wrapper for fleetctl}
   spec.description   = %q{Allows controlling fleet clusters via a ruby API}
-  spec.homepage      = 'https://github.com/josh-lauer/ruby-fleetctl'
+  spec.homepage      = 'https://github.com/cloudspace/ruby-fleetctl'
   spec.license       = 'MIT'
 
   spec.files         = `git ls-files -z`.split("\x0")
