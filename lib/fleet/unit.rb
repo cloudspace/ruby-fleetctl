@@ -18,10 +18,14 @@ module Fleet
 
     [:status, :destroy, :stop, :start, :cat, :unload].each do |method_name|
       define_method(method_name) do
-        cmd = Fleetctl::Command.new(method_name, self.name)
+        cmd = Fleetctl::Command.new(method_name, self.name, options: options)
         runner = cmd.run(host: ip)
         runner.output
       end
+    end
+
+    def options
+      controller.options
     end
 
     def ip
@@ -42,7 +46,7 @@ module Fleet
 
     # run the command on host (string, array of command + args, whatever) and return stdout
     def ssh(*command, port: 22)
-      runner = Fleetctl::Runner::SSH.new([*command].flatten.compact.join(' '))
+      runner = Fleetctl::Runner.new([*command].flatten.compact.join(' '))
       runner.run(host: ip, ssh_options: { port: port })
       runner.output
     end
@@ -51,7 +55,7 @@ module Fleet
     # assumes that this unit corresponds to a docker container
     def container_ssh_port(container_name = name)
       return @container_ssh_port if defined? @container_ssh_port
-      docker_runner = Fleetctl::Runner::SSH.new('docker', 'port', container_name, 22)
+      docker_runner = Fleetctl::Runner.new(['docker', 'port', container_name, 22])
       docker_runner.run(host: ip)
       @container_ssh_port = docker_runner.output.split(':').last.rstrip
     end
@@ -60,7 +64,7 @@ module Fleet
     # # attempts to execute a command via ssh directly on the container
     # # assumes that this unit corresponds to a docker container
     # def container_ssh(*command, container_name: name, key: Dir.home+'/.ssh/id_rsa', username: 'root', password: nil)
-    #   cmd_runner = Fleetctl::Runner::SSH.new([*command].flatten.compact.join(' '))
+    #   cmd_runner = Fleetctl::Runner.new([*command].flatten.compact.join(' '))
     #   cmd_runner.run(host: ip, ssh_options: { port: container_ssh_port(container_name), keys: [*key], username: username, password: password})
     #   runner.output
     # end

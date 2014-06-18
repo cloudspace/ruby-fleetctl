@@ -9,6 +9,10 @@ module Fleet
       @metadata = metadata
     end
 
+    def options
+      cluster.options
+    end
+
     def controller
       cluster.controller
     end
@@ -19,9 +23,8 @@ module Fleet
 
     # run the command (string, array of command + args, whatever) and return stdout
     def ssh(*command, port: 22)
-      runner = Fleetctl::Runner::SSH.new([*command].flatten.compact.join(' '))
-      runner.run(host: ip, ssh_options: { port: port })
-      runner.output
+      runner = Fleetctl::Runner.new([*command].flatten.compact.join(' '), host: ip, ssh_options: { port: port })
+      runner.run
     end
 
     def ==(other_machine)

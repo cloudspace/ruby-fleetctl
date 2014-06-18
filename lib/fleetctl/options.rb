@@ -10,12 +10,8 @@ module Fleetctl
         global: {},
         executable: 'fleetctl',
         logger: Logger.new(STDOUT),
-        runner_class: 'SSH',
         command_prefix: nil,
         discovery_url: nil,
-        
-        # for use with runner_class: 'SSH'
-        # these aren't used wih a Shell runner
         fleet_host: nil,
         fleet_user: 'core',
         ssh_options: {},

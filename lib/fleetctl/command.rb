@@ -1,6 +1,6 @@
 module Fleetctl
   class Command
-    attr_accessor :command
+    attr_accessor :command, :options
 
     class << self
       def run(*cmd, &blk)
@@ -9,8 +9,9 @@ module Fleetctl
       end
     end
 
-    def initialize(*cmd)
+    def initialize(*cmd, options: nil)
       @command = cmd
+      @options = options
       yield(runner) if block_given?
     end
 
@@ -20,22 +21,25 @@ module Fleetctl
     end
 
     def runner
-      klass = "Fleetctl::Runner::#{Fleetctl.options.runner_class}".constantize
-      @runner ||= klass.new(expression)
+      @runner ||= Fleetctl::Runner.new(expression)
     end
 
     private
 
+    def runner_options
+      { host: options.fleet_host, user: options.fleet_user, ssh_options: options.ssh_options }
+    end
+
     def global_options
-      Fleetctl.options.global.map { |k,v| "--#{k.to_s.gsub('_','-')}=#{v}" }
+      options.global.map { |k,v| "--#{k.to_s.gsub('_','-')}=#{v}" }
     end
 
     def prefix
-      Fleetctl.options.command_prefix
+      options.command_prefix
     end
 
     def executable
-      Fleetctl.options.executable
+      options.executable
     end
 
     def expression
