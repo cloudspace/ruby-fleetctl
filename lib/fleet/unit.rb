@@ -47,13 +47,17 @@ module Fleet
       runner.output
     end
 
-    # gets the external port mapped to port 22 inside this unit's docker container
+    # gets the external port corresponding to the internal port specified
     # assumes that this unit corresponds to a docker container
-    def container_ssh_port(container_name = name)
-      return @container_ssh_port if defined? @container_ssh_port
-      docker_runner = Fleetctl::Runner::SSH.new('docker', 'port', container_name, 22)
+    # TODO: split this sort of docker-related functionality out into a separate class
+    def docker_port(internal_port, container_name = name)
+      docker_runner = Fleetctl::Runner::SSH.new('docker', 'port', container_name, internal_port)
       docker_runner.run(host: ip)
-      @container_ssh_port = docker_runner.output.split(':').last.rstrip
+      output = docker_runner.output
+      if output
+        output.rstrip!
+        output.split(':').last
+      end
     end
 
     # TODO: GET THIS WORKING
