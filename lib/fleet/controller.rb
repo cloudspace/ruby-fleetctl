@@ -35,7 +35,7 @@ module Fleet
     # accepts one or more File objects, or an array of File objects
     def start(*unit_file_or_files)
       unitfiles = [*unit_file_or_files].flatten
-      out = unitfile_operation(:start, unitfiles)
+      out       = unitfile_operation(:start, unitfiles)
       clear_units
       out
     end
@@ -43,7 +43,7 @@ module Fleet
     # accepts one or more File objects, or an array of File objects
     def submit(*unit_file_or_files)
       unitfiles = [*unit_file_or_files].flatten
-      out = unitfile_operation(:submit, unitfiles)
+      out       = unitfile_operation(:submit, unitfiles)
       clear_units
       out
     end
@@ -51,7 +51,7 @@ module Fleet
     # accepts one or more File objects, or an array of File objects
     def load(*unit_file_or_files)
       unitfiles = [*unit_file_or_files].flatten
-      out = unitfile_operation(:load, unitfiles)
+      out       = unitfile_operation(:load, unitfiles)
       clear_units
       out
     end
@@ -104,9 +104,9 @@ module Fleet
       unit_hashes.each do |unit_attrs|
         if unit_attrs[:machine]
           machine_id, machine_ip = unit_attrs[:machine].split('/')
-          unit_attrs[:machine] = cluster.add_or_find(Fleet::Machine.new(id: machine_id, ip: machine_ip))
+          unit_attrs[:machine]   = cluster.add_or_find(Fleet::Machine.new(id: machine_id, ip: machine_ip))
         end
-        unit_attrs[:name] = unit_attrs.delete(:unit)
+        unit_attrs[:name]       = unit_attrs.delete(:unit)
         unit_attrs[:controller] = self
         @units.add_or_find(Fleet::Unit.new(unit_attrs))
       end

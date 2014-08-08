@@ -50,7 +50,7 @@ The options, with default values, are as follows:
     # temp directory to be used on the fleet hosts
     remote_temp_dir: '/tmp'
 
-At a minumum, either :fleet_host or :discovery_url must be provided in order to contact the cluster. If both are used, the discovery_url will be used as a fallback if the fleet_host specified cannot be reached.
+At a minimum, either :fleet_host or :discovery_url must be provided in order to contact the cluster. If both are used, the discovery_url will be used as a fallback if the fleet_host specified cannot be reached.
 
 ## Usage
 To use Fleetctl, first create a `Fleetctl::Controller`

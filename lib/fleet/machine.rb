@@ -3,9 +3,9 @@ module Fleet
     attr_reader :cluster, :id, :ip, :metadata
 
     def initialize(cluster: nil, id: nil, ip: nil, metadata: nil)
-      @cluster = cluster
-      @id = id
-      @ip = ip
+      @cluster  = cluster
+      @id       = id
+      @ip       = ip
       @metadata = metadata
     end
 
@@ -20,7 +20,7 @@ module Fleet
     # run the command (string, array of command + args, whatever) and return stdout
     def ssh(*command, port: 22)
       runner = Fleetctl::Runner::SSH.new([*command].flatten.compact.join(' '))
-      runner.run(host: ip, ssh_options: { port: port })
+      runner.run(host: ip, ssh_options: {port: port})
       runner.output
     end
 

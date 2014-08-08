@@ -44,7 +44,7 @@ module Fleet
       clear
       Fleetctl::Command.new('list-machines', '-l') do |runner|
         runner.run(host: host)
-        new_machines = parse_machines(runner.output)
+        parse_machines(runner.output)
         if runner.exit_code == 0
           return true
         else
@@ -56,7 +56,7 @@ module Fleet
     def parse_machines(raw_table)
       machine_hashes = Fleetctl::TableParser.parse(raw_table)
       machine_hashes.map do |machine_attrs|
-        machine_attrs[:id] = machine_attrs.delete(:machine)
+        machine_attrs[:id]      = machine_attrs.delete(:machine)
         machine_attrs[:cluster] = self
         add_or_find(Fleet::Machine.new(machine_attrs))
       end
