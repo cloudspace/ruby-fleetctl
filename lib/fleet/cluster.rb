@@ -44,7 +44,7 @@ module Fleet
       clear
       Fleetctl::Command.new('list-machines', '-l') do |runner|
         runner.run(host: host)
-        new_machines = parse_machines(runner.output)
+        parse_machines(runner.output)
         if runner.exit_code == 0
           return true
         else
