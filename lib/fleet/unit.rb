@@ -6,19 +6,20 @@ module Fleet
     # SUB    = The low-level unit activation state, values depend on unit type.
     attr_reader :controller, :name, :state, :load, :active, :sub, :desc, :machine
 
-    def initialize(controller:, name:, state:, load:, active:, sub:, desc:, machine:)
+    def initialize(controller, name, state, load, active, sub, desc, machine)
       @controller = controller
-      @name = name
-      @state = state
-      @load = load
-      @active = active
-      @sub = sub
-      @machine = machine
+      @name       = name
+      @state      = state
+      @load       = load
+      @active     = active
+      @sub        = sub
+      @desc       = desc
+      @machine    = machine
     end
 
     [:status, :destroy, :stop, :start, :cat, :unload].each do |method_name|
       define_method(method_name) do
-        cmd = Fleetctl::Command.new(method_name, self.name)
+        cmd    = Fleetctl::Command.new(method_name, self.name)
         runner = cmd.run(host: ip)
         runner.output
       end
@@ -43,7 +44,7 @@ module Fleet
     # run the command on host (string, array of command + args, whatever) and return stdout
     def ssh(*command, port: 22)
       runner = Fleetctl::Runner::SSH.new([*command].flatten.compact.join(' '))
-      runner.run(host: ip, ssh_options: { port: port })
+      runner.run(host: ip, ssh_options: {port: port})
       runner.output
     end
 

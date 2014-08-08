@@ -18,7 +18,7 @@ module Fleet
 
     def hosts
       begin
-        data['node']['nodes'].map{|node| node['value'].split(':')[0..1].join(':').split('//').last}
+        data['node']['nodes'].map { |node| node['value'].split(':')[0..1].join(':').split('//').last }
       rescue => e
         Fleetctl.logger.error 'ERROR in Fleet::Discovery#hosts, returning empty set'
         Fleetctl.logger.error e.message
