@@ -79,3 +79,19 @@ RSpec.configure do |config|
   end
 
 end
+
+module Support
+  def self.random_ipv4
+    Array.new(4){rand(256)}.join('.')
+  end
+
+  def self.empty_logger
+    Logger.new(Support::EmptyLogger.new)
+  end
+
+  class EmptyLogger < StringIO
+    def write(_)
+      # do nothing
+    end
+  end
+end
