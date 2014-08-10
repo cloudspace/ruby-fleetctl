@@ -32,28 +32,15 @@ module Fleet
       units.detect { |u| u.name == unit_name }
     end
 
-    # accepts one or more File objects, or an array of File objects
-    def start(*unit_file_or_files)
-      unitfiles = [*unit_file_or_files].flatten
-      out = unitfile_operation(:start, unitfiles)
-      clear_units
-      out
-    end
-
-    # accepts one or more File objects, or an array of File objects
-    def submit(*unit_file_or_files)
-      unitfiles = [*unit_file_or_files].flatten
-      out = unitfile_operation(:submit, unitfiles)
-      clear_units
-      out
-    end
-
-    # accepts one or more File objects, or an array of File objects
-    def load(*unit_file_or_files)
-      unitfiles = [*unit_file_or_files].flatten
-      out = unitfile_operation(:load, unitfiles)
-      clear_units
-      out
+    # define actions on units
+    [:start, :submit, :load].each do |method_name|
+      # accepts one or more File objects, or an array of File objects
+      define_method(method_name) do |*unit_file_or_files|
+        unitfiles = unit_file_or_files.flatten
+        out = unitfile_operation(method_name, unitfiles)
+        clear_units
+        out
+      end
     end
 
     def destroy(*unit_names)
