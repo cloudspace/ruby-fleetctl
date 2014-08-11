@@ -20,7 +20,7 @@ module Fleetctl
     end
 
     def runner
-      klass = "Fleetctl::Runner::#{Fleetctl.options.runner_class}".constantize
+      klass = Kernel.const_get("Fleetctl::Runner::#{Fleetctl.options.runner_class}")
       @runner ||= klass.new(expression)
     end
 
