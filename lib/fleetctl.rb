@@ -1,6 +1,7 @@
 require 'net/ssh'
 require 'net/scp'
 require 'hashie'
+require 'active_support/all'
 
 require 'fleetctl/version'
 require 'fleetctl/command'
