@@ -23,5 +23,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'hashie', '~> 2'
   spec.add_dependency 'net-ssh', '= 2.9.1'
   spec.add_dependency 'net-scp', '= 1.2.1'
-  spec.add_dependency 'activesupport', '= 4.1.7'
+  spec.add_dependency 'activesupport'
 end
