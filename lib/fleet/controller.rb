@@ -20,6 +20,10 @@ module Fleet
       @units.to_a
     end
 
+    def units_once
+      fetch_units_once
+    end
+
     # refreshes local state to match the fleet cluster
     def sync
       build_fleet
@@ -69,7 +73,7 @@ module Fleet
     end
 
     def fleet_host
-      cluster.fleet_host
+      Fleetctl.options.fleet_host || cluster.fleet_host
     end
 
     def clear_units
@@ -97,6 +101,27 @@ module Fleet
         parse_units(runner.output)
       end
       @units.to_a
+    end
+
+    #This was specific for getting the info back as a hash rather than as objects
+    def fetch_units_once(host: fleet_host)
+      Fleetctl.logger.info 'Fetching units from host: '+host.inspect
+      command = Fleetctl::Command.new('list-units', '-l') do |runner|
+        runner.run(host: host)
+      end
+      output_data = Fleetctl::TableParser.parse(command.runner.stdout_data)
+      parse_units_once(output_data)
+    end
+
+    def parse_units_once(units)
+      units.map do |unit|
+        new_unit = {}
+        new_unit[:name] = unit[:unit]
+        new_unit[:ip] = unit[:machine].split('/').last
+        new_unit[:active] = unit[:active]
+        new_unit[:sub] = unit[:sub]
+        new_unit
+      end
     end
 
     def parse_units(raw_table)
