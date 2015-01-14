@@ -12,23 +12,23 @@ module Fleetctl
             @exit_code = nil
             @exit_signal = nil
             ssh.open_channel do |channel|
-              channel.exec(command) do |ch, success|
+              channel.exec(command) do |__, success|
                 unless success
-                  abort "FAILED: couldn't execute command (ssh.channel.exec)"
+                  raise "FAILED: couldn't execute command (ssh.channel.exec)"
                 end
-                channel.on_data do |ch,data|
+                channel.on_data do |_,data|
                   @stdout_data+=data
                 end
 
-                channel.on_extended_data do |ch,type,data|
+                channel.on_extended_data do |_, _,data|
                   @stderr_data+=data
                 end
 
-                channel.on_request('exit-status') do |ch,data|
+                channel.on_request('exit-status') do |_,data|
                   @exit_code = data.read_long
                 end
 
-                channel.on_request('exit-signal') do |ch, data|
+                channel.on_request('exit-signal') do |_, data|
                   @exit_signal = data.read_long
                 end
               end

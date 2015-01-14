@@ -2,11 +2,11 @@ module Fleet
   class Machine
     attr_reader :cluster, :id, :ip, :metadata
 
-    def initialize(cluster: nil, id: nil, ip: nil, metadata: nil)
-      @cluster = cluster
-      @id = id
-      @ip = ip
-      @metadata = metadata
+    def initialize(params)
+      @cluster = params[:cluster]
+      @id = params[:id]
+      @ip = params[:ip]
+      @metadata = params[:metadata]
     end
 
     def controller

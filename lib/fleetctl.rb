@@ -1,6 +1,7 @@
 require 'net/ssh'
 require 'net/scp'
 require 'hashie'
+require 'forwardable'
 
 require 'fleetctl/version'
 require 'fleetctl/command'
@@ -21,8 +22,9 @@ require 'fleet/cluster'
 module Fleetctl
   class << self
     extend Forwardable
-    def_delegators :instance, :machines, :units, :[], :sync, :start, :submit, :load, :destroy
-  
+    def_delegators :instance, :machines, :units, :[], :sync, :start, :submit,
+                              :load, :destroy
+
     attr_reader :options
 
     # use if you might need more than one fleet
@@ -40,7 +42,7 @@ module Fleetctl
       @options = Options.new(cfg)
     end
 
-    # set the logger for fleet to use
+    # get the logger for fleet to use
     def logger
       options.logger
     end

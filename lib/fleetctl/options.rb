@@ -24,7 +24,7 @@ module Fleetctl
     end
 
     def ssh_options
-      self[:ssh_options].symbolize_keys
+      self[:ssh_options].to_hash(symbolize_keys: true)
     end
   end
 end
