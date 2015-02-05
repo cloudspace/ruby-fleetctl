@@ -39,7 +39,8 @@ module Fleet
     # accepts one or more File objects, or an array of File objects
     def start(*unit_file_or_files)
       unitfiles = [*unit_file_or_files].flatten
-      out = unitfile_operation(:start, unitfiles)
+      start_command = 'start -no-block'
+      out = unitfile_operation(start_command, unitfiles)
       clear_units
       out
     end
