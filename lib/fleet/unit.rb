@@ -6,7 +6,7 @@ module Fleet
     # SUB    = The low-level unit activation state, values depend on unit type.
     attr_reader :controller, :name, :state, :load, :active, :sub, :desc, :machine
 
-    def initialize(controller:, name:, state:, load:, active:, sub:, desc:, machine:)
+    def initialize(controller: nil, name: nil, state: nil, load: nil, active: nil, sub: nil, desc: nil, machine: nil)
       @controller = controller
       @name = name
       @state = state
