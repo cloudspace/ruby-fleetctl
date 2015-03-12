@@ -36,7 +36,7 @@ module Fleetctl
             ssh.loop
             @output = @stdout_data
           end
-          Fleetctl.logger.info "EXIT CODE!: #{exit_code.inspect}"
+          Fleetctl.logger.info "EXIT CODE: #{exit_code.inspect}"
           Fleetctl.logger.info "STDOUT: #{@output.inspect}"
           @output
         rescue => e

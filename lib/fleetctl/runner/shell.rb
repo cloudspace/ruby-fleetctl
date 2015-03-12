@@ -9,7 +9,7 @@ module Fleetctl
 
         @exit_signal = @status.termsig
         @exit_code = @status.exitstatus
-        Fleetctl.logger.info "EXIT CODE!: #{@exit_code.inspect}"
+        Fleetctl.logger.info "EXIT CODE: #{@exit_code.inspect}"
         Fleetctl.logger.info "STDOUT: #{@output.inspect}"
         @output = @stdout_data
       end
