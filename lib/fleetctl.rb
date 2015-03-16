@@ -22,7 +22,7 @@ require 'fleet/cluster'
 module Fleetctl
   class << self
     extend Forwardable
-    def_delegators :instance, :machines, :units, :[], :sync, :start, :submit, :load, :destroy
+    def_delegators :instance, :machines, :units, :[], :sync, :start, :submit, :load, :destroy, :clear_units
   
     attr_reader :options
 

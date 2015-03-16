@@ -67,6 +67,10 @@ module Fleet
       runner.exit_code == 0
     end
 
+    def clear_units
+      @units = nil
+    end
+
     private
 
     def build_fleet
@@ -75,10 +79,6 @@ module Fleet
 
     def fleet_host
       Fleetctl.options.fleet_host || cluster.fleet_host
-    end
-
-    def clear_units
-      @units = nil
     end
 
     def unitfile_operation(command, files)
